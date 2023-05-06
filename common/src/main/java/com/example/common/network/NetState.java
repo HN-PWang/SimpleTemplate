@@ -7,11 +7,8 @@ package com.example.common.network;
  */
 public class NetState {
 
-    public enum Status {
-        SUCCESS, ERROR
-    }
-
-    public static final int SUCCESS_CODE = 0;
-    public static final int ERROR_CODE = -1;
+    public static final int SUCCESS = 200;
+    public static final int NETWORK_ERROR = 100000;//网络异常
+    public static final int UNKNOWN_ERROR = 100001;//未知错误
 
 }

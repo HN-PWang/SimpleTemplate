@@ -46,7 +46,7 @@ public class BindCallLiveData<T> extends MutableLiveData<T> {
 
         @Override
         public void onFailure(Call<T> call, Throwable t) {
-            liveData.postValue((T) ApiData.create(NetState.ERROR_CODE, "网络异常", null));
+            liveData.postValue((T) ApiData.create(NetState.NETWORK_ERROR, null, "网络异常"));
         }
     }
 

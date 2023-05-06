@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.basemodel.base.BasePresenter;
 import com.example.common.network.ApiData;
+import com.example.common.network.NetState;
 import com.example.common.network.RetrofitManager;
 import com.example.simpletemplate.bean.TestBean;
 import com.example.simpletemplate.netService.TestModelService;
@@ -32,6 +33,9 @@ public class TestPresenter extends BasePresenter {
         service.getUserInfoByLiveData().observe(lifecycleOwner, new Observer<ApiData<TestBean>>() {
             @Override
             public void onChanged(ApiData<TestBean> apiData) {
+                if (apiData.code == NetState.SUCCESS) {
+
+                }
                 Log.e("PWDebug", "onChanged code = " + apiData.code);
                 Log.e("PWDebug", "onChanged data = " + new Gson().toJson(apiData.data));
                 Log.e("PWDebug", "onChanged msg = " + apiData.message);
