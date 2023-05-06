@@ -11,6 +11,6 @@ public interface CallbackInterface<T> {
 
     void onSucceed(T data);
 
-    void onFailure();
+    void onFailure(String msg);
 
 }

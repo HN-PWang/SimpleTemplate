@@ -17,14 +17,21 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_req_1"
-            android:layout_width="120dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="45dp"
-            android:gravity="center"
-            android:text="请求结果"
-            android:textColor="#333333" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_req_1"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="45dp"
+                android:gravity="center"
+                android:text="请求结果"
+                android:textColor="#333333" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 

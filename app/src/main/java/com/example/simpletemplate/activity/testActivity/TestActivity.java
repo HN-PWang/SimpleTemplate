@@ -3,16 +3,13 @@ package com.example.simpletemplate.activity.testActivity;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.basemodel.base.BaseModelActivity;
-import com.example.common.network.ApiData;
-import com.example.common.network.RetrofitManager;
+import com.example.common.widget.MessageDialog;
 import com.example.simpletemplate.R;
-import com.example.simpletemplate.bean.TestBean;
 import com.example.simpletemplate.databinding.ActivityTestBinding;
-import com.example.simpletemplate.netService.TestModelService;
 
 public class TestActivity extends BaseModelActivity {
 
@@ -40,6 +37,33 @@ public class TestActivity extends BaseModelActivity {
             @Override
             public void onClick(View view) {
                 mPresenter.requestTest();
+            }
+        });
+
+        vb.tvReq1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageDialog dialog = new MessageDialog(TestActivity.this,"提示消息"
+                        ,"提示消息提示消息提示消息提示消息提");
+                dialog.show();
+            }
+        });
+
+        vb.srlView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        vb.srlView.setRefreshing(false);
+                    }
+                }.start();
+
             }
         });
 

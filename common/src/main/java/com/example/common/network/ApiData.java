@@ -19,19 +19,7 @@ public class ApiData<T> {
         this.message = message;
     }
 
-    public static <T> ApiData<T> success(T data) {
-        return new ApiData<>(NetState.SUCCESS_CODE, data, null);
-    }
-
-    public static <T> ApiData<T> success(int code, T data, String msg) {
-        return new ApiData<>(code, data, msg);
-    }
-
-    public static <T> ApiData<T> error(String msg, @Nullable T data) {
-        return error(NetState.SUCCESS_CODE, msg, data);
-    }
-
-    public static <T> ApiData<T> error(int code, String msg, @Nullable T data) {
+    public static <T> ApiData<T> create(int code,@Nullable T data,String msg){
         return new ApiData<>(code, data, msg);
     }
 
