@@ -99,9 +99,7 @@ public class LoadingOwnerImpl implements LoadingOwner {
     }
 
     private Dialog buildLoadDialog(String content, boolean canHide) {
-        Dialog dialog = new LoadingDialog(mContext, content, canHide);
-
-        return dialog;
+        return new LoadingDialog(mContext, content, canHide);
     }
 
 }

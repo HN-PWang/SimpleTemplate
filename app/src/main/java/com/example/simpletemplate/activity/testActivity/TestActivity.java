@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.basemodel.base.BaseModelActivity;
+import com.example.common.utils.toast.ToastUtils;
 import com.example.common.widget.MessageDialog;
 import com.example.simpletemplate.R;
 import com.example.simpletemplate.databinding.ActivityTestBinding;
@@ -43,9 +44,10 @@ public class TestActivity extends BaseModelActivity {
         vb.tvReq1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MessageDialog dialog = new MessageDialog(TestActivity.this,"提示消息"
-                        ,"提示消息提示消息提示消息提示消息提");
-                dialog.show();
+//                MessageDialog dialog = new MessageDialog(TestActivity.this,"提示消息"
+//                        ,"提示消息提示消息提示消息提示消息提");
+//                dialog.show();
+                ToastUtils.show("显示一下 显示一下");
             }
         });
 
