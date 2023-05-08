@@ -29,9 +29,10 @@ public class ToastUtils {
     }
 
     private static void showCustomToast(Context context, String text, int duration) {
-        //不用吝惜toast的view内存占有,会很快被清理的,每次进来都新建,避免has already been added to the window manager.
+        //toast的view内存会很快被清理的,每次进来都新建,避免has already been added to the window manager.
         Toast mToast = new Toast(context);
-        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflate = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View toastRootView = inflate.inflate(R.layout.toast_custom_layout, null);
         mToast.setView(toastRootView);
         mToast.setGravity(Gravity.CENTER, 0, 0);

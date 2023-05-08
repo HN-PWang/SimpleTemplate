@@ -45,8 +45,7 @@ public class AccountManager {
         String strAcc = SPUtils.getString(ACCOUNT_INFO_KEY, "");
 
         if (!TextUtils.isEmpty(strAcc)) {
-            AccountDataBean bean = JSONObject.parseObject(strAcc, AccountDataBean.class);
-            return bean;
+            return JSONObject.parseObject(strAcc, AccountDataBean.class);
         }
 
         return null;
