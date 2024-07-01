@@ -17,6 +17,15 @@
         android:theme="@style/Theme.SimpleTemplate"
         tools:targetApi="31">
         <activity
+            android:name=".SelectPhotoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestNetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoadImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.testActivity.TestActivity"
             android:exported="false" />
         <activity
