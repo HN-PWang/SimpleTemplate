@@ -3,22 +3,29 @@ package com.example.simpletemplate.activity.testActivity;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.basemodel.base.BaseModelActivity;
+import com.example.common.network.ApiData;
+import com.example.common.network.NetState;
+import com.example.common.network.RetrofitManager;
 import com.example.common.utils.toast.ToastUtils;
-import com.example.common.widget.MessageDialog;
 import com.example.simpletemplate.R;
 import com.example.simpletemplate.databinding.ActivityTestBinding;
+import com.example.simpletemplate.netService.TestModelService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestActivity extends BaseModelActivity {
 
-    private TestPresenter mPresenter;
-
-    private TestModel vm;
-
     private ActivityTestBinding vb;
+
+    private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     public int getContentViewLayout() {
@@ -27,44 +34,12 @@ public class TestActivity extends BaseModelActivity {
 
     @Override
     public void initView() {
-        vm = new ViewModelProvider(this).get(TestModel.class);
-        mPresenter = new TestPresenter(this, vm);
 
         vb = DataBindingUtil.setContentView(this, R.layout.activity_test);
-        vb.setLifecycleOwner(this);
-        vb.setVariable(0, vm);
 
         vb.llRootContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.requestTest();
-            }
-        });
-
-        vb.tvReq1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                MessageDialog dialog = new MessageDialog(TestActivity.this,"提示消息"
-//                        ,"提示消息提示消息提示消息提示消息提");
-//                dialog.show();
-                ToastUtils.show("显示一下 显示一下");
-            }
-        });
-
-        vb.srlView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(){
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        vb.srlView.setRefreshing(false);
-                    }
-                }.start();
 
             }
         });
@@ -74,5 +49,29 @@ public class TestActivity extends BaseModelActivity {
     @Override
     public void initLogic() {
 
+    }
+
+    public void reqNet() {
+        Map<String, String> map = new HashMap<>();
+        map.put("param", String.valueOf(1));
+        TestModelService service = RetrofitManager.create(TestModelService.class);
+        disposable.add(service.getUserInfoByLiveData(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ApiData<Object>>() {
+                    @Override
+                    public void accept(ApiData<Object> data) throws Exception {
+                        if (data != null && data.code == NetState.SUCCESS) {
+
+                        } else {
+                            ToastUtils.show("com.ld.lib.R.string.str_network_anomaly");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtils.show(throwable.getMessage());
+                    }
+                }));
     }
 }

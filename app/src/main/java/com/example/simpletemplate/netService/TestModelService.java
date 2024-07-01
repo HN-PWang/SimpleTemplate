@@ -1,13 +1,13 @@
 package com.example.simpletemplate.netService;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.common.network.ApiData;
-import com.example.common.network.BindCallLiveData;
-import com.example.simpletemplate.bean.TestBean;
 
+import java.util.Map;
+
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-
+import retrofit2.http.Headers;
+import retrofit2.http.QueryMap;
 
 /**
  * @auther: pengwang
@@ -19,7 +19,8 @@ public interface TestModelService {
 //    @GET("getUserInfo")
 //    LiveData<Bean> getUserInfoByLiveData();
 
+    @Headers("Content-Type: application/json")
     @GET("getUserInfo")
-    MutableLiveData<ApiData<TestBean>> getUserInfoByLiveData();
+    Observable<ApiData<Object>> getUserInfoByLiveData(@QueryMap Map<String, String> commonParams);
 
 }
